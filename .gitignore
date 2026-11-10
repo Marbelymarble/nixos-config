@@ -1,0 +1,12 @@
+# Nix build outputs
+result
+result-*
+
+# Local development state
+.direnv/
+.env
+.env.*
+!.env.example
+*.backup
+*.key
+*.pem
