@@ -1,4 +1,10 @@
-{config, username, ...}: {
+{ pkgs, ... }:
+let
+  preferences = import ../home/dms/preferences.nix;
+  settings = pkgs.writeTextDir "settings.json" (builtins.toJSON preferences.settings);
+  session = pkgs.writeTextDir "session.json" (builtins.toJSON preferences.session);
+in
+{
   # Disable GDM without uninstalling GNOME.
   services.displayManager.gdm.enable = false;
 
@@ -9,7 +15,10 @@
     # Run the login screen using Niri.
     compositor.name = "niri";
 
-    # Import this user's DMS appearance and wallpaper.
-    configHome = config.users.users.${username}.home;
+    # Use the same declared appearance and wallpaper, including on first boot.
+    configFiles = [
+      "${settings}/settings.json"
+      "${session}/session.json"
+    ];
   };
 }

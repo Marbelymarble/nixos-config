@@ -14,6 +14,7 @@ in {
     ../../home/programs.nix
     ../../home/nixos-config.nix
     ../../home/niri
+    ../../home/dms
   ];
 
   programs.git = {
