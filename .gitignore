@@ -10,3 +10,6 @@ result-*
 *.backup
 *.key
 *.pem
+
+# Private photos
+/wallpapers/MaxVogel.jpg
