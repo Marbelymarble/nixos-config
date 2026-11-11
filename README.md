@@ -1,5 +1,7 @@
 My NixOS config.
 
+AI was used to help organize and clean up this repository.
+
 On a fresh x86_64 NixOS installation with UEFI, run as user `mari` with sudo access.
 
 Clone (Git is provided temporarily):

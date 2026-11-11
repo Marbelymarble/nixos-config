@@ -10,6 +10,8 @@
     config.allowUnfree = true;
   };
 in {
+  imports = [./fastfetch.nix];
+
   home.packages = with pkgs; [
     # CLI and desktop utilities.
     zip
@@ -54,6 +56,35 @@ in {
   ];
 
   programs = {
+    fish.interactiveShellInit = ''
+      set -g fish_greeting ""
+    '';
+
+    starship = {
+      enable = true;
+      enableFishIntegration = true;
+      settings = {
+        add_newline = true;
+        format = "$directory$git_branch$git_status$nix_shell$cmd_duration$line_break$character";
+        directory.style = "bold blue";
+        git_branch = {
+          symbol = "git ";
+          style = "bold purple";
+        };
+        git_status.style = "purple";
+        nix_shell = {
+          symbol = "nix ";
+          style = "bold blue";
+        };
+        cmd_duration.style = "white";
+        character = {
+          success_symbol = "[❯](bold purple)";
+          error_symbol = "[❯](bold red)";
+          vimcmd_symbol = "[❮](bold blue)";
+        };
+      };
+    };
+
     gh = {
       enable = true;
       gitCredentialHelper.enable = true;
@@ -62,8 +93,10 @@ in {
 
     kitty = {
       enable = true;
+      # DMS regenerates this palette when the wallpaper or theme changes.
+      extraConfig = "include dank-theme.conf";
       settings = {
-        background_opacity = "0.75";
+        background_opacity = "0.6";
         background_blur = 1;
         dynamic_background_opacity = true;
       };

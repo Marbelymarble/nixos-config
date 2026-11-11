@@ -87,6 +87,11 @@ in {
         }
       ];
       packages = ["com.usebottles.bottles"];
+      # Update explicitly with `flatpak update --system`, outside rebuilds.
+      update = {
+        onActivation = false;
+        auto.enable = false;
+      };
       uninstallUnmanaged = true;
     };
 

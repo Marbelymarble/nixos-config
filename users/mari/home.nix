@@ -79,7 +79,11 @@ in {
       }
     ];
 
-    update.onActivation = true;
+    # Update explicitly with `flatpak update --user`, outside rebuilds.
+    update = {
+      onActivation = false;
+      auto.enable = false;
+    };
     uninstallUnmanaged = true;
     uninstallUnused = true;
   };
