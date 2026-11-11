@@ -56,13 +56,23 @@ in
         (entry "uptime" "󰅐" "uptime" pink)
         ((entry "os" "" "distro" pink) // { format = "{name} {version-id}"; })
         (entry "kernel" "" "kernel" pink)
-        (entry "wm" "" "wm" white)
-        (entry "de" "󰇄" "desktop" white)
-        (entry "terminal" "" "term" white)
-        ((entry "display" "󰍹" "display" white) // {
-          format = "{width}x{height} @ {refresh-rate} Hz";
+        (entry "wm" "" "wm" pink)
+        # A standalone WM has no DE. Keep its row so the flag bands stay aligned.
+        ((entry "command" "󰇄" "desktop" white) // {
+          text = ''
+            ${pkgs.fastfetch}/bin/fastfetch --config none --structure de --format json |
+              ${pkgs.jq}/bin/jq -r '[.[] | .result.name? // empty] | if length == 0 then "None (standalone WM)" else join(", ") end'
+          '';
         })
-        (entry "shell" "" "shell" pink)
+        (entry "terminal" "" "term" white)
+        # Keep multiple monitors on one row as well.
+        ((entry "command" "󰍹" "display" white) // {
+          text = ''
+            ${pkgs.fastfetch}/bin/fastfetch --config none --structure display --format json |
+              ${pkgs.jq}/bin/jq -r '[.[] | .result[]? | .output | "\(.width)x\(.height) @ \(.refreshRate | round) Hz"] | if length == 0 then "Unknown" else join(", ") end'
+          '';
+        })
+        (entry "shell" "" "shell" white)
         ((entry "cpu" "󰍛" "cpu" pink) // { format = "{name:30}"; })
         (
           (entry "command" "󰢮" "gpu" pink)
@@ -75,7 +85,7 @@ in
           }
         )
         (
-          (entry "disk" "󰉉" "disk" blue)
+          (entry "disk" "󰉉" "disk" pink)
           // {
             folders = "/";
             format = "{size-used} / {size-total} ({size-percentage})";

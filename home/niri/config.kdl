@@ -228,6 +228,20 @@ animations {
     }
 }
 // Window rules let you adjust behavior for individual windows.
+// Opacity multiplies client alpha; leave Kitty's own transparency/blur alone.
+window-rule {
+    opacity 1.0
+}
+window-rule {
+    match is-focused=false
+    exclude app-id=r#"(?i)^kitty$"#
+    opacity 0.8
+    // Native wallpaper blur; leave client-requested effects (including Kitty) alone.
+    background-effect {
+        blur true
+        xray true
+    }
+}
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
 // Work around WezTerm's initial configure bug

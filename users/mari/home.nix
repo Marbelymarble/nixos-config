@@ -27,16 +27,10 @@ in {
 
   # Preserve the existing user-specific Fish helpers without hard-coding /home/mari.
   programs.fish.functions = {
-    letgo = {
-      description = "Run the local letgo TUI";
-      body = ''
-        python3 ${lib.escapeShellArg "${config.home.homeDirectory}/letgo/letgo-tui/run"} $argv
-      '';
-    };
     venting = {
       description = "Run the local venting application";
       body = ''
-        python3 ${lib.escapeShellArg "${config.home.homeDirectory}/Documents/venting/run"} $argv
+        python3 ${lib.escapeShellArg "${config.home.homeDirectory}/Projects/venting/run"} $argv
       '';
     };
   };

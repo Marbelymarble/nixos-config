@@ -15,6 +15,8 @@
       description = "Rebuild and switch the NixOS configuration for this host";
       body = ''
         set -l config_repo ${lib.escapeShellArg config.mari.nixosConfig.repository}
+        cd "$config_repo"
+        or return
         set -l current_host (hostname)
         or return
         sudo nixos-rebuild switch --flake "$config_repo#$current_host" $argv
