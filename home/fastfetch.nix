@@ -57,13 +57,6 @@ in
         ((entry "os" "" "distro" pink) // { format = "{name} {version-id}"; })
         (entry "kernel" "" "kernel" pink)
         (entry "wm" "" "wm" pink)
-        # A standalone WM has no DE. Keep its row so the flag bands stay aligned.
-        ((entry "command" "󰇄" "desktop" white) // {
-          text = ''
-            ${pkgs.fastfetch}/bin/fastfetch --config none --structure de --format json |
-              ${pkgs.jq}/bin/jq -r '[.[] | .result.name? // empty] | if length == 0 then "None (standalone WM)" else join(", ") end'
-          '';
-        })
         (entry "terminal" "" "term" white)
         # Keep multiple monitors on one row as well.
         ((entry "command" "󰍹" "display" white) // {
@@ -73,7 +66,7 @@ in
           '';
         })
         (entry "shell" "" "shell" white)
-        ((entry "cpu" "󰍛" "cpu" pink) // { format = "{name:30}"; })
+        ((entry "cpu" "󰍛" "cpu" white) // { format = "{name:30}"; })
         (
           (entry "command" "󰢮" "gpu" pink)
           // {
@@ -91,7 +84,7 @@ in
             format = "{size-used} / {size-total} ({size-percentage})";
           }
         )
-        (entry "memory" "" "memory" blue)
+        (entry "memory" "" "memory" pink)
         (frame "├───────────┤" blue)
         ((entry "colors" "" "colors" blue) // {
           symbol = "circle";

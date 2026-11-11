@@ -11,5 +11,21 @@ result-*
 *.key
 *.pem
 
+# Local AI assistant state and instructions
+.agents/
+.codex/
+.claude/
+.cursor/
+.gemini/
+.aider*
+.copilot/
+AGENTS.md
+AGENTS.override.md
+CLAUDE.md
+GEMINI.md
+.cursorrules
+.cursorignore
+.github/copilot-instructions.md
+
 # Private photos
 /wallpapers/MaxVogel.jpg
